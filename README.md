@@ -73,3 +73,15 @@ This project demonstrates:
 - Sorting and ranking data
 - Data visualization with Matplotlib
 - Organizing a Python data analytics project
+
+## How to Run 
+1. Clone the repository 
+2. Install the required Python packaes:
+```bash
+pip install -r requirements.text
+```
+3. Run the analysis:
+
+```bash
+cd src && python analyze_summary.py 
+```
