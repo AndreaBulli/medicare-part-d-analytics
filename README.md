@@ -22,6 +22,8 @@ The analysis processes a large Medicare dataset in chunks, summarizes the data b
 
 The project uses Medicare Part D prescription drug data.
 
+Data source: [Centers for Medicare & Medicaid Services (CMS) – Medicare Part D Prescribers by Provider and Drug](https://data.cms.gov/provider-summary-by-type-of-service/medicare-part-d-prescribers/medicare-part-d-prescribers-by-provider-and-drug)
+
 Because the original dataset is large, Python processes the data in chunks and creates a smaller summarized dataset containing:
 
 - Drug name
