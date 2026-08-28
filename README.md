@@ -17,6 +17,7 @@ The analysis processes a large Medicare dataset in chunks, summarizes the data b
 - Matplotlib
 - PyCharm
 - Git/GitHub
+- SQL
 
 ## Dataset
 
@@ -53,6 +54,16 @@ Revcovi had the highest cost per claim at approximately $407,000 per claim.
 
 ![Top 10 Drugs by Cost Per Claim](images/top_10_cost_per_claim.png)
 
+## SQL Analysis
+
+SQL was used to further analyze the processed Medicare Part D data. Queries include:
+
+- Ranking drugs by total spending and total claims
+- Filtering drugs with high cost per claim
+- Aggregating spending and claims using GROUP BY
+- Ranking drugs using SQL window functions
+- Comparing individual drug costs to the overall average using subqueries
+
 ## Project Structure
 
 - `src/explore_data.py` - Initial dataset exploration
@@ -60,6 +71,7 @@ Revcovi had the highest cost per claim at approximately $407,000 per claim.
 - `src/analyze_summary.py` - Analyzes the summarized dataset and creates visualizations
 - `data/drug_summary.csv` - Summarized drug level dataset
 - `images/` - Generated visualizations
+- `sql/analysis_queries.sql` - SQL queries for drug spending, claims, cost analysis, aggregations, subqueries, and ranking
 
 ## Skills Demonstrated
 
@@ -73,6 +85,7 @@ This project demonstrates:
 - Sorting and ranking data
 - Data visualization with Matplotlib
 - Organizing a Python data analytics project
+- SQL querying, filtering, aggregations, subqueries, and window functions
 
 ## How to Run 
 1. Clone the repository 

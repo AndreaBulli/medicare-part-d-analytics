@@ -3,3 +3,4 @@ data/MUP_DPR_RY26_P04_V10_DY24_NPIBN.csv
 __pycache__/
 .DS_Store
 .idea/
+medicare_drugs.db
