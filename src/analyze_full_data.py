@@ -1,6 +1,11 @@
 import pandas as pd
+from pathlib import Path
 
-file_path = "../data/MUP_DPR_RY26_P04_V10_DY24_NPIBN.csv"
+project_root = Path(__file__).resolve().parent.parent
+file_path = project_root / "data" / "MUP_DPR_RY26_P04_V10_DY24_NPIBN.csv"
+
+if not file_path.exists():
+    raise FileNotFoundError(f"Raw Medicare dataset not found: {file_path}")
 
 chunk_size = 100_000
 
@@ -9,7 +14,7 @@ claim_totals = {}
 
 print("Starting full Medicare Part D analysis...")
 
-for chunk_number, chunk in enumerate(pd.read_csv(file_path, chunksize=chunk_size), start=1):
+for chunk_number, chunk in enumerate(pd.read_csv(file_path, usecols=["Brnd_Name", "Tot_Drug_Cst", "Tot_Clms"], chunksize=chunk_size), start=1):
     cost_summary = chunk.groupby("Brnd_Name")["Tot_Drug_Cst"].sum()
     claim_summary = chunk.groupby("Brnd_Name")["Tot_Clms"].sum()
 
@@ -27,13 +32,6 @@ top_10_drugs = sorted(drug_totals.items(), key=lambda x: x[1], reverse=True)[:10
 print("\nTOP 10 DRUGS BY TOTAL COST:")
 for drug, cost in top_10_drugs:
     print(f"{drug}: ${cost:,.2f}")
-
-claim_totals = {}
-
-for chunk in pd.read_csv(file_path, chunksize=chunk_size):
-    summary = chunk.groupby("Brnd_Name")["Tot_Clms"].sum()
-    for drug, claims in summary.items():
-        claim_totals[drug] = claim_totals.get(drug, 0) + claims
 
 top_10_claims = sorted(claim_totals.items(), key=lambda x: x[1], reverse=True)[:10]
 
@@ -55,8 +53,9 @@ results = pd.DataFrame({
     "Tot_Clms": [claim_totals.get(drug, 0) for drug in drug_totals]
 })
 
+results = results[results["Tot_Clms"] > 0].copy()
 results["Cost_Per_Claim"] = results["Tot_Drug_Cst"] / results["Tot_Clms"]
 
-results.to_csv("../data/drug_summary.csv", index=False)
+results.to_csv(project_root / "data" / "drug_summary.csv", index=False)
 
 print("\nSaved summarized results to drug_summary.csv")
